@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile page </title>
+</head>
+<body>
+<h1>My Profile</h1>
+
+<h3>Username: <span th:text="${username.username}"></span></h3>
+<!--        <img th:src="@{${add an image url here}}" th:width="300"/>-->
+<img src="https://media.giphy.com/media/AAmhvrZzLCz1m/giphy.gif"/>
+
+
+<p>First Name: <span th:text="${username.firstname}"></span></p>
+<p>Last Name: <span th:text="${username.lastname}"></span></p>
+<p>Date of Birth: <span th:text="${username.dob}"></span></p>
+<p>Bio: <span th:text="${username.bio}"></span></p>
+
+</body>
+</html>
