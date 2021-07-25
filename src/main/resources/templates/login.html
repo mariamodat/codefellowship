@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/loginStyle.css}">
+<!--    font links -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
+    <title>Login</title>
+
+</head>
+<body>
+<form th:action="@{/login}" method="post">
+    <div class="imgcontainer">
+        <img src="https://img.favpng.com/22/25/14/user-profile-computer-icons-login-clip-art-png-favpng-17raMaNK8TDg96GJM0eFABEsz.jpg" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+        <label ><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" required>
+
+        <label ><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" required>
+
+        <button type="submit">Login</button>
+        <label>
+            <input type="checkbox" checked="checked" name="remember"> Remember me
+        </label>
+    </div>
+<a href="/signup"></a>
+    <div class="container" >
+        <button type="button" class="cancelbtn">Cancel</button>
+        <span class="psw">Sing up  <a href="http://localhost:8080/signup"> create new account</a></span>
+    </div>
+</form>
+</body>
+</html>
