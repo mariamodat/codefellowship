@@ -10,6 +10,10 @@ public class HelloController {
         return "Home";
     }
 
+@GetMapping("/access-denied")
+    public String accessDenied(){
+        return "err";
+}
 
 
 }
