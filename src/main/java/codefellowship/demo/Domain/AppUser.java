@@ -2,12 +2,10 @@ package codefellowship.demo.Domain;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -15,24 +13,25 @@ public class AppUser implements UserDetails {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 private Long id;
+@Column(unique = true)
     private String username ;
     private String password;
-    private String firstName;
-    private String lastName;
+    private String firstname;
+    private String lastname;
     private Date  dateOfBirth;
     private String bio;
 
     @OneToMany (mappedBy = "appUser")
-    private Set<Post> posts ;
+    public Set<Post> posts ;
 
     public AppUser() {
     }
 
-    public AppUser(String username, String password, String firstName, String lastName, Date dateOfBirth, String bio) {
+    public AppUser(String username, String password, String firstname, String lastname, Date dateOfBirth, String bio) {
         this.username = username;
         this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.dateOfBirth = dateOfBirth;
         this.bio = bio;
     }
@@ -90,20 +89,20 @@ private Long id;
         this.password = password;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstName) {
+        this.firstname = firstName;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastName) {
+        this.lastname = lastName;
     }
 
     public Date getDateOfBirth() {

@@ -2,20 +2,28 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/homeStyle.css}">
     <title>Profile page </title>
 </head>
 <body>
-<h1>My Profile</h1>
 
-<h3>Username: <span th:text="${username.username}"></span></h3>
-<!--        <img th:src="@{${add an image url here}}" th:width="300"/>-->
+<div th:replace="fragment/header :: header">...</div>
+
+<h1  th:text="${principal}"> </h1>
+<h3>Username: <span th:text="${appUser.getUsername()}"></span></h3>
 <img src="https://media.giphy.com/media/AAmhvrZzLCz1m/giphy.gif"/>
 
+<p>First Name: <span th:text="${appUser.getFirstname}"></span></p>
+<p>Last Name: <span th:text="${appUser.getLastname}"></span></p>
+<p>Date of Birth: <span th:text="${appUser.dateOfBirth}"></span></p>
+<p>Bio: <span th:text="${appUser.getBio}"></span></p>
 
-<p>First Name: <span th:text="${username.firstname}"></span></p>
-<p>Last Name: <span th:text="${username.lastname}"></span></p>
-<p>Date of Birth: <span th:text="${username.dob}"></span></p>
-<p>Bio: <span th:text="${username.bio}"></span></p>
-
+<h2>My Posts</h2>
+<ul>
+    <li th:each="post : ${appUser.posts}">
+        <p> posted at : <span th:text="${post.getCreatedAt}"></span></p>
+        <p> <span th:text="${post.getBody}"></span></p>
+    </li>
+</ul>
 </body>
 </html>

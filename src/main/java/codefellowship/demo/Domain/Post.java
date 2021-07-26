@@ -1,7 +1,7 @@
 package codefellowship.demo.Domain;
 
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 @Entity
 public class Post {

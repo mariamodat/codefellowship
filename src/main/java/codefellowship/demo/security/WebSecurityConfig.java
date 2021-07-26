@@ -1,10 +1,7 @@
 package codefellowship.demo.security;
 
-import codefellowship.demo.Domain.AppUser;
-import codefellowship.demo.infrastructure.UserDetailServiceImpl;
-import codefellowship.demo.infrastructure.UserRepository;
+import codefellowship.demo.infrastructure.Services.UserDetailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,12 +34,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/signup").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/usercreate").permitAll()
-                .antMatchers("/*.js", "/*.css").permitAll()
+                .antMatchers("/*.js", "/*.css" , "/*header.html").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/")
+                .defaultSuccessUrl("/profile")
                 .and()
                 .logout(); }
 }
