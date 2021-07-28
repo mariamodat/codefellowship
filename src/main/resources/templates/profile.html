@@ -2,28 +2,55 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/homeStyle.css}">
+    <link rel="stylesheet" th:href="@{/profileStyle.css}">
     <title>Profile page </title>
 </head>
 <body>
 
 <div th:replace="fragment/header :: header">...</div>
+<h1  th:text="${principal}" style="text-align: center ; font-family: Algerian" > </h1>
+<div class="container">
 
-<h1  th:text="${principal}"> </h1>
-<h3>Username: <span th:text="${appUser.getUsername()}"></span></h3>
-<img src="https://media.giphy.com/media/AAmhvrZzLCz1m/giphy.gif"/>
+    <div class="avatar-flip">
+        <img src="https://media.giphy.com/media/AAmhvrZzLCz1m/giphy.gif" height="150" width="150"/>
+    </div>
 
-<p>First Name: <span th:text="${appUser.getFirstname}"></span></p>
-<p>Last Name: <span th:text="${appUser.getLastname}"></span></p>
-<p>Date of Birth: <span th:text="${appUser.dateOfBirth}"></span></p>
-<p>Bio: <span th:text="${appUser.getBio}"></span></p>
+    <h4>Username: <span th:text="${appUser.getUsername()}"></span></h4>
+    <h2><span th:text="${appUser.getFirstname + ' ' + appUser.getLastname}"></span></h2>
+<!--    <h2> <span th:text="${appUser.getLastname}"></span></h2>-->
+    <h4>Date of Birth: <span th:text="${appUser.dateOfBirth}"></span></h4>
+    <p>Bio: <span th:text="${appUser.getBio}"></span></p>
+
+
+
+</div>
+<h1> Add Post to Your Profile </h1>
+<form method="post" action="/post" >
+
+    <p><label for="body">Create a post</label>
+        <textarea name="body" id="body" rows="10" cols="600"></textarea></p>
+
+    <input type="submit" />
+</form>
 
 <h2>My Posts</h2>
-<ul>
-    <li th:each="post : ${appUser.posts}">
-        <p> posted at : <span th:text="${post.getCreatedAt}"></span></p>
-        <p> <span th:text="${post.getBody}"></span></p>
-    </li>
-</ul>
+
+<!--    <p th:if="${appUser.posts == null }">-->
+<!--        <h4> what you </h4>-->
+<!--    </p>-->
+
+    <h2 th:each="post : ${appUser.posts}">
+        <div class="row">
+            <div class="column">
+                <div class="card">
+                    <h3>  <span th:text="${post.getBody}"> </span> </h3>
+                    <p> <span th:text="${post.getAppUser().getUsername()}"> </span> </p>
+                    <p> posted by :  <span th:text="${post.getCreatedAt}"></span></p>
+                </div>
+            </div>
+        </div>
+    </h2>
+
+
 </body>
 </html>

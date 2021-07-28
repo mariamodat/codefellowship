@@ -18,7 +18,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         AppUser user = userRepository.findByUsername(username);
         if (user==null)
         { System.out.println("Oopss! User is null  ");
-        throw new UsernameNotFoundException((username + " not found"));}
+        throw new UsernameNotFoundException((username + " Ooops! user not found!!"));}
         else
         return user;
 

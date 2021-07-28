@@ -18,7 +18,7 @@ private Long id;
     private String password;
     private String firstname;
     private String lastname;
-    private Date  dateOfBirth;
+    private String  dateOfBirth;
     private String bio;
 
     @OneToMany (mappedBy = "appUser")
@@ -27,7 +27,7 @@ private Long id;
     public AppUser() {
     }
 
-    public AppUser(String username, String password, String firstname, String lastname, Date dateOfBirth, String bio) {
+    public AppUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
@@ -105,11 +105,11 @@ private Long id;
         this.lastname = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public String  getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String  dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

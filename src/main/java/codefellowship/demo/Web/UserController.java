@@ -38,6 +38,8 @@ public class UserController {
      */
     @GetMapping("/signup")
     public String getSignUpPage() {
+
+
         return "signup";
     }
 
@@ -78,15 +80,19 @@ public class UserController {
     public RedirectView createUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio) throws ParseException {
         System.out.println(">>>>>>>>>>>>>>>>>>>"+ username + "   "+ password);
         String hashedpwd = encoder.encode(password);
-        Date DOB = new SimpleDateFormat("dd-MM-yyyy").parse(dateOfBirth);
-        AppUser newUser = new AppUser(username, hashedpwd, firstname, lastname, DOB, bio);
+//        Date DOB = new SimpleDateFormat("dd-MMM-yyyy").parse(dateOfBirth);
+        AppUser newUser = new AppUser(username, hashedpwd, firstname, lastname, dateOfBirth, bio);
         userRepository.save(newUser);
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, newUser.getAuthorities());
-        System.out.println(authentication);
+//        Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, newUser.getAuthorities());
+//        System.out.println(authentication);
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        // maybe autologin?
+        Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        return new RedirectView("/");
+
+        return new RedirectView("/login");
     }
 
 
