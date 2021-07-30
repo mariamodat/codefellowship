@@ -23,8 +23,19 @@ private Long id;
 
     @OneToMany (mappedBy = "appUser")
     public Set<Post> posts ;
+    @ManyToMany
+    Set <AppUser> followers;
+
 
     public AppUser() {
+    }
+
+    public Set<AppUser> getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Set<AppUser> followers) {
+        this.followers = followers;
     }
 
     public AppUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio) {

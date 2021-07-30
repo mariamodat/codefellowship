@@ -19,6 +19,10 @@
     <h2><span th:text="${appUser.getFirstname + ' ' + appUser.getLastname}"></span></h2>
 <!--    <h2> <span th:text="${appUser.getLastname}"></span></h2>-->
     <h4>Date of Birth: <span th:text="${appUser.dateOfBirth}"></span></h4>
+    <p> Followers: <h4 th:each="user : ${users}">
+    <p th:text="${user.getUsername()}"></p>
+    </h4>
+    </p>
     <p>Bio: <span th:text="${appUser.getBio}"></span></p>
 
 
@@ -30,7 +34,7 @@
     <p><label for="body">Create a post</label>
         <textarea name="body" id="body" rows="10" cols="600"></textarea></p>
 
-    <input type="submit" />
+        <input type="submit" />
 </form>
 
 <h2>My Posts</h2>
@@ -44,8 +48,9 @@
             <div class="column">
                 <div class="card">
                     <h3>  <span th:text="${post.getBody}"> </span> </h3>
-                    <p> <span th:text="${post.getAppUser().getUsername()}"> </span> </p>
-                    <p> posted by :  <span th:text="${post.getCreatedAt}"></span></p>
+                    <p> posted by :  <span th:text="${post.getAppUser().getUsername()}"></span></p>
+                    <p> <span th:text="${post.getCreatedAt}"> </span> </p>
+
                 </div>
             </div>
         </div>

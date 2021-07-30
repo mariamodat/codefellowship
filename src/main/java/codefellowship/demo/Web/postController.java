@@ -33,7 +33,12 @@ public class postController {
     public String getPostsPage (){
         return "postPage";
     }
-
+@GetMapping("/gpost")
+public  String getPostsPage2(Model m ){
+        Iterable <Post> posts = postRepository.findAll();
+        m.addAttribute("posts" , posts);
+        return "allPosts";
+}
 
     /**
      * each user can post

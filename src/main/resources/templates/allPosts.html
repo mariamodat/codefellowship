@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet"  th:href="@{/postStyle.css}">
+<head>
+    <meta charset="UTF-8">
+    <title>Posts</title>
+</head>
+<body>
+<h1> Posts </h1>
+ <span th:each="post : ${posts} ">
+
+<div class="row">
+    <div class="column">
+        <div class="card">
+            <h3>  <span th:text="${post.getBody}"> </span> </h3>
+            <p> <span th:text="${post.getAppUser().getUsername()}"> </span> </p>
+            <p> posted by :  <span th:text="${post.getCreatedAt}"></span></p>
+        </div>
+    </div>
+</div>
+
+</span>
+</body>
+</html>
