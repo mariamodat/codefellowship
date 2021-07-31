@@ -6,14 +6,12 @@ import codefellowship.demo.infrastructure.PostRepository;
 import codefellowship.demo.infrastructure.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.security.Principal;
 import java.sql.Timestamp;
 
 @Controller
@@ -33,11 +31,17 @@ public class postController {
     public String getPostsPage (){
         return "postPage";
     }
-@GetMapping("/gpost")
+
+    /**
+     * get all posts
+     * @param m
+     * @return all posts by all users
+     */
+    @GetMapping("/gpost")
 public  String getPostsPage2(Model m ){
         Iterable <Post> posts = postRepository.findAll();
         m.addAttribute("posts" , posts);
-        return "allPosts";
+        return "feeds";
 }
 
     /**

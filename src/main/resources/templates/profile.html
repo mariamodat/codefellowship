@@ -28,21 +28,29 @@
 
 
 </div>
-<h1> Add Post to Your Profile </h1>
+
+<h2>Followings </h2>
+
+<ul  style="width: 7rem" class="following-list">
+    <li th:each="user : ${followings}">
+        <a class="following" th:href="@{'/users/' + ${user.id}}">
+            <span th:text="${user.firstname}"></span>
+            <span th:text="${user.lastname}"></span>
+        </a>
+
+    </li>
+</ul>
+
+<h1 style="text-align: center"> Add Post to Your Profile </h1>
 <form method="post" action="/post" >
 
     <p><label for="body">Create a post</label>
-        <textarea name="body" id="body" rows="10" cols="600"></textarea></p>
+        <textarea class="post" name="body" id="body" placeholder="what you are thinking ... ?" ></textarea></p>
 
-        <input type="submit" />
+        <input style="margin-left: 719px" type="submit" />
 </form>
 
-<h2>My Posts</h2>
-
-<!--    <p th:if="${appUser.posts == null }">-->
-<!--        <h4> what you </h4>-->
-<!--    </p>-->
-
+<h2 style="text-align: center">My Posts</h2>
     <h2 th:each="post : ${appUser.posts}">
         <div class="row">
             <div class="column">
@@ -55,6 +63,9 @@
             </div>
         </div>
     </h2>
+
+
+
 
 
 </body>

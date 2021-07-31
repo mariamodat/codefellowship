@@ -8,6 +8,7 @@
     <span th:unless="${principal == null}">
       <ul>
         <li><a href="http://localhost:8080/">Home</a></li>
+        <li><a href="http://localhost:8080/users">Discover</a></li>
       <li><a href="http://localhost:8080/profile">Profile </a></li>
       <li><a href="http://localhost:8080/gpost">Posts </a></li>
       <li> <a href="/logout">Log out</a> </li>
@@ -17,7 +18,8 @@
     
     <span th:if="${principal == null}">
     <ul>
-      <li><a href="http://localhost:8080/">Home</a></li>
+      <li><a href="http://localhost:8080/">Home </a></li>
+      <li><a href="http://localhost:8080/users">Discover </a></li>
       <li><a href="http://localhost:8080/signup">Sign Up </a></li>
       <li><a href="http://localhost:8080/login">login  </a></li>
       <li><a href="http://localhost:8080/profile">Profile </a></li>
