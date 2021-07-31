@@ -24,6 +24,18 @@ private Long id;
     @OneToMany (mappedBy = "appUser")
     public Set<Post> posts ;
     @ManyToMany
+            @JoinTable(
+                    name ="followers",
+                    joinColumns = {
+                            @JoinColumn (
+                                    name = "userID"
+                            )
+                    } ,
+                    inverseJoinColumns = {
+                            @JoinColumn (name = "followerID")
+                    }
+            )
+
     Set <AppUser> followers;
 
 

@@ -114,3 +114,40 @@ p {
     text-align: center;
     background-color: #f1f1f1;
 }
+
+.post{
+    display: block;
+    resize: none;
+    border: 0;
+    box-shadow: rgb(0 0 0 / 10%) 0px 4px 12px;
+    height: 11rem;
+    width: 40vw;
+    margin: 0 auto;
+    padding: 0.75rem;
+}
+
+.post:focus {
+    outline: none;
+}
+
+.follow-button-form{
+
+}
+
+.following-list{
+background-color: #f0f0f0;
+
+}
+.following-list> a {
+    color: green;
+}
+.following{
+    color: black;
+}
+
+.following:hover {
+    background-color: #11111140;
+}
+.followA{
+    
+}

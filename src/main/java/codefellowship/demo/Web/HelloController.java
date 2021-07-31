@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class HelloController {
     @GetMapping ("/")
     public String helloPage (){
-        return "Home";
+        return "splash";
     }
 
 @GetMapping("/access-denied")

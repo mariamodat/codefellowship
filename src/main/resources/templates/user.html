@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" th:href="@{/profileStyle.css}">
+</head>
+<body>
+<!--<h1> Welcome to <span th:text="${appUser.getFirstname()}"></span> 's profile </h1>-->
+<!--<p> name  <span th:text=" ${appUser.getFirstname()}  + ' ' + ${appUser.getLastname()} "></span></p>-->
+<!--<p> Birth date  <span th:text="${appUser.getDateOfBirth()}"> </span></p>-->
+
+
+<div th:replace="fragment/header :: header">...</div>
+<h1> Welcome to <span th:text="${appUser.getFirstname()}"></span> 's profile </h1>
+
+<div class="container">
+
+    <div class="avatar-flip">
+        <img src="https://media.giphy.com/media/AAmhvrZzLCz1m/giphy.gif" height="150" width="150"/>
+    </div>
+
+    <h4>Username: <span th:text="${appUser.getUsername()}"></span></h4>
+    <h2><span th:text="${appUser.getFirstname + ' ' + appUser.getLastname}"></span></h2>
+    <form class="follow-button-form" method="POST" th:action="'/follow/'+${appUser.getId()}" >
+        <button type="submit"> Follow</button>
+    </form>
+    <span >
+        <form method="post" th:action="'/unfollow/'+${appUser.getId()}" >
+        <button type="submit" > Unfollow </button>
+    </form>
+    </span>
+
+
+</div>
+
+</body>
+</html>

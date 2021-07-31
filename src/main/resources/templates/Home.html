@@ -3,22 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Home Page </title>
-  <link rel="stylesheet" href="/bootstrap-4.0.0/css/bootstrap.min.css" />
-  <script src="/bootstrap-4.0.0/js/bootstrap.min.js"></script>
-<!--     font links : -->
+    <link rel="stylesheet" href="/bootstrap-4.0.0/css/bootstrap.min.css" />
+    <script src="/bootstrap-4.0.0/js/bootstrap.min.js"></script>
+    <!--     font links : -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Parisienne&display=swap" rel="stylesheet">
-    <link rel="stylesheet" th:href="@{/homeStyle.css}">
+    <link rel="stylesheet" th:href="@{/profileStyle.css}">
 </head>
 <body>
-<h1 th:unless="${principal == null}"> </h1>
-<!--<ul>-->
-<!--    <li><a href="http://localhost:8080/">Home</a></li>-->
-<!--    <li><a href="http://localhost:8080/signup">Sign Up </a></li>-->
-<!--    <li><a href="http://localhost:8080/profile">Profile </a></li>-->
-<!--    <li><a href="about.asp">About</a></li>-->
-<!--</ul>-->
+
 <div th:replace="fragment/header :: header">...</div>
+<h2 th:each="user : ${users}">
+    <div class="row">
+        <div class="column">
+            <div class="card">
+                <img style="width: 20%" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Missing_avatar.svg/1200px-Missing_avatar.svg.png" >
+                <h3>  <span th:text="${user.getFirstname()} + ' ' + ${user.getLastname()}"> </span> </h3>
+                <h4>  <span th:text="${user.getDateOfBirth}"> </span> </h4>
+                <h3> Posts </h3>
+                <span  th:each="post : ${user.getPosts()}">
+                     <h4>  <span th:text="${post.getBody()}"> </span>
+
+                     </h4>
+
+                </span>
+                <div class="followA">
+                    <form class="follow-button-form" method="POST" th:action="'/follow/'+${user.getId()}" >
+                        <button type="submit"> Follow</button>
+                    </form>
+                    <form class="follow-button-form" method="POST" th:action="'/unfollow/'+${user.getId()}" >
+                        <button type="submit"> Unfollow</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</h2>
+
 </body>
 </html>

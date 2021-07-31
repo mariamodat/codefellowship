@@ -13,8 +13,9 @@
     <div class="column">
         <div class="card">
             <h3>  <span th:text="${post.getBody}"> </span> </h3>
-            <p> <span th:text="${post.getAppUser().getUsername()}"> </span> </p>
-            <p> posted by :  <span th:text="${post.getCreatedAt}"></span></p>
+            <p> posted by :  <span th:text="${post.getAppUser().getUsername()}"></span></p>
+            <p> <span th:text="${post.getCreatedAt}"> </span> </p>
+
         </div>
     </div>
 </div>

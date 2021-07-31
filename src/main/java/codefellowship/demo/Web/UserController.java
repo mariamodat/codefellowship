@@ -13,14 +13,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 import java.sql.Timestamp;
 
 @Controller
@@ -39,13 +39,29 @@ public class UserController {
     @GetMapping("/signup")
     public String getSignUpPage() {
 
-
         return "signup";
     }
 
     @GetMapping("/login")
     public String getLoginPage() {
         return "login";
+    }
+
+    /**
+     * get specific user
+     * @param m
+     * @param p
+     * @param id
+     * @return user html page
+     */
+    @GetMapping("/users/{id}")
+    public String getSingleAppUserPage(Model m, Principal p, @PathVariable Long id) {
+//        long ID = Long.parseLong(id);
+        AppUser appUser = userRepository.getById(id);
+        m.addAttribute("appUser", appUser);
+        m.addAttribute("principal", p.getName());
+
+        return "user";
     }
 
     /**
@@ -59,6 +75,7 @@ public class UserController {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser = userRepository.findByUsername(p.getName());
         model.addAttribute("appUser", appUser);
+        model.addAttribute("followings" ,appUser.getFollowers() );
         model.addAttribute("principal", p.getName());
 
         return "profile";
@@ -80,20 +97,88 @@ public class UserController {
     public RedirectView createUser(String username, String password, String firstname, String lastname, String dateOfBirth, String bio) throws ParseException {
         System.out.println(">>>>>>>>>>>>>>>>>>>"+ username + "   "+ password);
         String hashedpwd = encoder.encode(password);
-//        Date DOB = new SimpleDateFormat("dd-MMM-yyyy").parse(dateOfBirth);
+
         AppUser newUser = new AppUser(username, hashedpwd, firstname, lastname, dateOfBirth, bio);
         userRepository.save(newUser);
-
-//        Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, newUser.getAuthorities());
-//        System.out.println(authentication);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-//        // maybe autologin?
         Authentication authentication = new UsernamePasswordAuthenticationToken(newUser, null, new ArrayList<>());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
 
-        return new RedirectView("/login");
+        return new RedirectView("/profile");
+    }
+
+    /**
+     * rendering all users
+     * @param m
+     * @param p
+     * @return html page of all users without the principal
+     */
+    @GetMapping("/users")
+        public String getAllUsers(Model m  , Principal p ){
+        AppUser user = userRepository.findByUsername(p.getName());
+        Iterable<AppUser> allUsers= userRepository.findAll();
+            List <AppUser> userWithoutMe = new ArrayList<>();
+            userWithoutMe.addAll((Collection<? extends AppUser>) allUsers);
+            userWithoutMe.remove(user);
+            m.addAttribute("users" , userWithoutMe);
+
+        return  "/Home";
+        }
+
+
+    /**
+     * get following for each user
+     * @param p
+     * @param m
+     * @return html page of followings
+     */
+    @GetMapping("/follow")
+    public  String getUserFollowings(Principal p, Model m)
+    {
+        AppUser appUser = userRepository.findByUsername(p.getName());
+        Iterable  <AppUser> followers = appUser.getFollowers();
+
+        m.addAttribute("following" ,followers);
+        m.addAttribute("appUser" , appUser);
+        return "followers";
+    }
+
+    /**
+     * follow users
+     * @param id
+     * @param p
+     * @return home page with following users
+     */
+    @PostMapping ("/follow/{id}")
+    public  RedirectView followUsersById(@PathVariable Long id , Principal p ){
+        AppUser loggedUser = userRepository.findByUsername(p.getName());
+        AppUser userToFollow = userRepository.getById(id);
+        loggedUser.getFollowers().add(userToFollow);
+        userRepository.save(loggedUser);
+        System.out.println(">>>>>>>>>>>>>>>>>>>Followers<<<<<<<<<<<<<<<<<" );
+    loggedUser.getFollowers().forEach(System.out::println);
+
+        return  new RedirectView("/users");
+    }
+
+
+    /**
+     * unfollow to the users
+     * @param id
+     * @param p
+     * @return home page
+     */
+    @PostMapping ("/unfollow/{id}")
+    public  RedirectView unfollowUsersById(@PathVariable Long id , Principal p ){
+        AppUser loggedUser = userRepository.findByUsername(p.getName());
+        AppUser userToFollow = userRepository.getById(id);
+        loggedUser.getFollowers().remove(userToFollow);
+        userRepository.save(loggedUser);
+
+        return  new RedirectView("/users");
     }
 
 
 }
+
+
