@@ -5,11 +5,11 @@
     <title>followers</title>
 </head>
 <body>
-<h1> Followers</h1>
-<h2> User:  <span th:text=" appUser"></span></h2>
-<h2> following  <span th:each="fol : ${followers}">
+<h1> Followings</h1>
+
+<h2> following  <span th:each="fol : ${following}">
     <ul>
-        <li th:text="fol.getUsername()"> </li>
+        <li th:text="${fol.getUsername()}"> </li>
     </ul>
 </span></h2>
 </body>

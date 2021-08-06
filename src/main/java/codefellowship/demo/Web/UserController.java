@@ -58,6 +58,12 @@ public class UserController {
     public String getSingleAppUserPage(Model m, Principal p, @PathVariable Long id) {
 //        long ID = Long.parseLong(id);
         AppUser appUser = userRepository.getById(id);
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        AppUser loggedUser = userRepository.findByUsername(p.getName());
+        if (loggedUser.getFollowers().contains(appUser)){
+            m.addAttribute("showButton" , false);
+        }
+        else { m.addAttribute("showButton" , true);}
         m.addAttribute("appUser", appUser);
         m.addAttribute("principal", p.getName());
 
@@ -74,6 +80,7 @@ public class UserController {
     public String getProfilePage( Principal p ,Model model) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         AppUser appUser = userRepository.findByUsername(p.getName());
+        model.addAttribute("counter" ,appUser.getFollowers().size());
         model.addAttribute("appUser", appUser);
         model.addAttribute("followings" ,appUser.getFollowers() );
         model.addAttribute("principal", p.getName());
@@ -120,6 +127,9 @@ public class UserController {
             List <AppUser> userWithoutMe = new ArrayList<>();
             userWithoutMe.addAll((Collection<? extends AppUser>) allUsers);
             userWithoutMe.remove(user);
+
+
+            m.addAttribute("followings" , user.getFollowers());
             m.addAttribute("users" , userWithoutMe);
 
         return  "/Home";
@@ -136,7 +146,7 @@ public class UserController {
     public  String getUserFollowings(Principal p, Model m)
     {
         AppUser appUser = userRepository.findByUsername(p.getName());
-        Iterable  <AppUser> followers = appUser.getFollowers();
+        Set  <AppUser> followers = appUser.getFollowers();
 
         m.addAttribute("following" ,followers);
         m.addAttribute("appUser" , appUser);
@@ -150,10 +160,12 @@ public class UserController {
      * @return home page with following users
      */
     @PostMapping ("/follow/{id}")
-    public  RedirectView followUsersById(@PathVariable Long id , Principal p ){
+    public  RedirectView followUsersById(@PathVariable Long id , Principal p , Model m){
         AppUser loggedUser = userRepository.findByUsername(p.getName());
         AppUser userToFollow = userRepository.getById(id);
-        loggedUser.getFollowers().add(userToFollow);
+         Set <AppUser> followings = loggedUser.getFollowers();
+         followings.add(userToFollow);
+
         userRepository.save(loggedUser);
         System.out.println(">>>>>>>>>>>>>>>>>>>Followers<<<<<<<<<<<<<<<<<" );
     loggedUser.getFollowers().forEach(System.out::println);
@@ -169,7 +181,7 @@ public class UserController {
      * @return home page
      */
     @PostMapping ("/unfollow/{id}")
-    public  RedirectView unfollowUsersById(@PathVariable Long id , Principal p ){
+    public  RedirectView unfollowUsersById(@PathVariable Long id , Principal p , Model m ){
         AppUser loggedUser = userRepository.findByUsername(p.getName());
         AppUser userToFollow = userRepository.getById(id);
         loggedUser.getFollowers().remove(userToFollow);

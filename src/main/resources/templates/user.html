@@ -22,10 +22,13 @@
 
     <h4>Username: <span th:text="${appUser.getUsername()}"></span></h4>
     <h2><span th:text="${appUser.getFirstname + ' ' + appUser.getLastname}"></span></h2>
-    <form class="follow-button-form" method="POST" th:action="'/follow/'+${appUser.getId()}" >
+    <span th:if="${showButton== true}">
+          <form class="follow-button-form" method="POST" th:action="'/follow/'+${appUser.getId()}" >
         <button type="submit"> Follow</button>
     </form>
-    <span >
+    </span>
+
+    <span  th:unless="${showButton ==true}">
         <form method="post" th:action="'/unfollow/'+${appUser.getId()}" >
         <button type="submit" > Unfollow </button>
     </form>
