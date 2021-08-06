@@ -29,12 +29,18 @@
 
                 </span>
                 <div class="followA">
-                    <form class="follow-button-form" method="POST" th:action="'/follow/'+${user.getId()}" >
+                    <span th:unless="${followings.contains(user)}">
+                           <form class="follow-button-form" method="POST" th:action="'/follow/'+${user.getId()}" >
                         <button type="submit"> Follow</button>
                     </form>
-                    <form class="follow-button-form" method="POST" th:action="'/unfollow/'+${user.getId()}" >
+                    </span>
+                    <span th:if="${followings.contains(user)}">
+                     <form class="follow-button-form" method="POST" th:action="'/unfollow/'+${user.getId()}" >
                         <button type="submit"> Unfollow</button>
                     </form>
+
+                    </span>
+
                 </div>
 
             </div>

@@ -19,10 +19,9 @@
     <h2><span th:text="${appUser.getFirstname + ' ' + appUser.getLastname}"></span></h2>
 <!--    <h2> <span th:text="${appUser.getLastname}"></span></h2>-->
     <h4>Date of Birth: <span th:text="${appUser.dateOfBirth}"></span></h4>
-    <p> Followers: <h4 th:each="user : ${users}">
-    <p th:text="${user.getUsername()}"></p>
-    </h4>
+    <p> Followings: <h4 th:text="${counter}"></h4>
     </p>
+
     <p>Bio: <span th:text="${appUser.getBio}"></span></p>
 
 
