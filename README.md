@@ -21,5 +21,47 @@ To run the server application,
 
  ./gradlew bootrun
 
+Routes/API
+CodefellowshipController
+@GetMapping("/")
+
+public String getCodefellowship(Principal p, Model m)
+AppUserController
+@PostMapping("/usercreate")
+
+ public RedirectView createUser(String username, String password, String dob, String firstname, String lastname, String bio)
+@GetMapping("/login")
+
+  public String getLoginPage() 
+@GetMapping("/signup")
+
+public String getSignUpPage()
+@GetMapping("/profile")
+
+public String getMyProfilePage(Principal p, Model m)
+@GetMapping("/users/{id}")
+
+public String getSingleAppUserPage(Model m, @PathVariable String id) 
+@GetMapping("/users")
+
+public String getUsersPage(Principal p, Model m)
+@GetMapping("/following")
+
+ public String getFollowingPage(Principal p, Model m) 
+@PostMapping("/follow/{id}")
+
+public RedirectView followUser(Principal p, @PathVariable long id)
+PostController
+@PostMapping("/posts")
+
+public RedirectView createPost(Principal p, Model m, String body)
+@GetMapping("/post")
+
+public String getPostPage() 
+@GetMapping("/feed")
+
+public String getFeedPage(Principal p, Model m)
+
+
 # Architecture /
 ![img](web1.png)
