@@ -21,45 +21,44 @@ To run the server application,
 
  ./gradlew bootrun
 
-Routes/API
-CodefellowshipController
+## Routes/API
+* CodefellowshipController
 @GetMapping("/")
-
 public String getCodefellowship(Principal p, Model m)
-AppUserController
+* 
+* AppUserController
 @PostMapping("/usercreate")
+public RedirectView createUser(String username, String password, String dob, String firstname, String lastname, String bio)
 
- public RedirectView createUser(String username, String password, String dob, String firstname, String lastname, String bio)
-@GetMapping("/login")
+* @GetMapping("/login")
+ public String getLoginPage() 
 
-  public String getLoginPage() 
-@GetMapping("/signup")
-
+* @GetMapping("/signup")
 public String getSignUpPage()
-@GetMapping("/profile")
 
+* @GetMapping("/profile")
 public String getMyProfilePage(Principal p, Model m)
-@GetMapping("/users/{id}")
 
+* @GetMapping("/users/{id}")
 public String getSingleAppUserPage(Model m, @PathVariable String id) 
-@GetMapping("/users")
 
+* @GetMapping("/users")
 public String getUsersPage(Principal p, Model m)
-@GetMapping("/following")
 
+* @GetMapping("/following")
  public String getFollowingPage(Principal p, Model m) 
-@PostMapping("/follow/{id}")
 
+* @PostMapping("/follow/{id}")
 public RedirectView followUser(Principal p, @PathVariable long id)
 PostController
-@PostMapping("/posts")
 
+* @PostMapping("/posts")
 public RedirectView createPost(Principal p, Model m, String body)
-@GetMapping("/post")
 
+* @GetMapping("/post")
 public String getPostPage() 
-@GetMapping("/feed")
 
+* @GetMapping("/feed")
 public String getFeedPage(Principal p, Model m)
 
 
